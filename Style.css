@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>College Attendance System</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <div class="orb orb-one"></div>
+    <div class="orb orb-two"></div>
+
+    <!-- HEADER -->
+
+    <header class="header">
+
+        <div class="brand">
+
+            <div class="logo">
+                🎓
+            </div>
+
+            <div>
+                <h1>College Attendance</h1>
+                <p>Smart Attendance Management</p>
+            </div>
+
+        </div>
+
+        <div class="today-box">
+            <span>Today</span>
+            <strong id="todayDate">--</strong>
+        </div>
+
+    </header>
+
+
+    <main class="container">
+
+        <!-- FILTER -->
+
+        <section class="card filter-card">
+
+            <div class="section-title">
+
+                <div>
+                    <h2>Attendance Dashboard</h2>
+                    <p>Select department, section and student</p>
+                </div>
+
+            </div>
+
+
+            <div class="filters">
+
+                <div class="field">
+
+                    <label>Department</label>
+
+                    <select id="departmentFilter">
+
+                        <option value="all">
+                            All Departments
+                        </option>
+
+                        <option value="BME">BME</option>
+                        <option value="AIDS">AIDS</option>
+                        <option value="IT">IT</option>
+                        <option value="ECE">ECE</option>
+                        <option value="MECH">MECH</option>
+                        <option value="CSE">CSE</option>
+
+                    </select>
+
+                </div>
+
+
+                <div class="field">
+
+                    <label>Section</label>
+
+                    <select id="sectionFilter">
+
+                        <option value="all">
+                            All Sections
+                        </option>
+
+                        <option value="A">Section A</option>
+                        <option value="B">Section B</option>
+                        <option value="C">Section C</option>
+
+                    </select>
+
+                </div>
+
+
+                <div class="field">
+
+                    <label>Student</label>
+
+                    <select id="studentFilter">
+
+                        <option value="all">
+                            All Students
+                        </option>
+
+                    </select>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- STATISTICS -->
+
+        <section class="stats">
+
+            <div class="stat-card">
+
+                <div class="stat-icon purple">
+                    👨‍🎓
+                </div>
+
+                <div>
+                    <span>Total Students</span>
+                    <h2 id="totalStudents">0</h2>
+                </div>
+
+            </div>
+
+
+            <div class="stat-card">
+
+                <div class="stat-icon green">
+                    ✓
+                </div>
+
+                <div>
+                    <span>Present Today</span>
+                    <h2 id="presentToday">0</h2>
+                </div>
+
+            </div>
+
+
+            <div class="stat-card">
+
+                <div class="stat-icon red">
+                    ✕
+                </div>
+
+                <div>
+                    <span>Absent Today</span>
+                    <h2 id="absentToday">0</h2>
+                </div>
+
+            </div>
+
+
+            <div class="stat-card">
+
+                <div class="stat-icon blue">
+                    📊
+                </div>
+
+                <div>
+                    <span>Average Attendance</span>
+                    <h2 id="averageAttendance">0%</h2>
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- DATE RANGE -->
+
+        <section class="card range-card">
+
+            <div>
+
+                <h2>📅 Attendance Period</h2>
+
+                <p>
+                    Previous 15 days + Next 15 days
+                </p>
+
+            </div>
+
+
+            <div class="date-ranges">
+
+                <div class="range-box">
+
+                    <small>Previous 15 Days</small>
+
+                    <strong id="previousRange">
+                        --
+                    </strong>
+
+                </div>
+
+
+                <div class="range-box future">
+
+                    <small>Next 15 Days</small>
+
+                    <strong id="nextRange">
+                        --
+                    </strong>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- PREVIOUS 15 DAYS -->
+
+        <section class="card">
+
+            <div class="section-title">
+
+                <div>
+
+                    <h2>📝 Previous 15 Days</h2>
+
+                    <p>
+                        Mark Present or Absent
+                    </p>
+
+                </div>
+
+                <button
+                    class="clear-btn"
+                    onclick="clearAllAttendance()">
+
+                    Clear Attendance
+
+                </button>
+
+            </div>
+
+
+            <div class="table-container">
+
+                <table>
+
+                    <thead>
+
+                        <tr>
+
+                            <th>Student</th>
+                            <th>Department</th>
+                            <th>Section</th>
+                            <th>Date</th>
+                            <th>Status</th>
+                            <th>Attendance</th>
+
+                        </tr>
+
+                    </thead>
+
+                    <tbody id="attendanceTable">
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </section>
+
+
+        <!-- NEXT 15 DAYS -->
+
+        <section class="card">
+
+            <div class="section-title">
+
+                <div>
+
+                    <h2>🔮 Next 15 Days</h2>
+
+                    <p>
+                        Future attendance planning
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div
+                class="future-grid"
+                id="futureGrid">
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <footer>
+
+        <p>
+            © 2026 College Attendance System
+        </p>
+
+    </footer>
+
+
+    <script src="app.js"></script>
+
+</body>
+
+</html>
