@@ -1,328 +1,915 @@
-<!DOCTYPE html>
-<html lang="en">
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
 
-<head>
-    <meta charset="UTF-8">
 
-    <meta name="viewport"
-          content="width=device-width, initial-scale=1.0">
+body {
 
-    <title>College Attendance System</title>
+    min-height: 100vh;
 
-    <link rel="stylesheet" href="style.css">
-</head>
+    font-family:
+        Arial,
+        Helvetica,
+        sans-serif;
 
-<body>
+    color: #172033;
 
-    <div class="orb orb-one"></div>
-    <div class="orb orb-two"></div>
+    background:
+        linear-gradient(
+            135deg,
+            #eef2ff,
+            #f8fafc,
+            #e0f2fe
+        );
 
-    <!-- HEADER -->
+    overflow-x: hidden;
+}
 
-    <header class="header">
 
-        <div class="brand">
+/* =========================
+   BACKGROUND 3D ORBS
+========================= */
 
-            <div class="logo">
-                🎓
-            </div>
+.orb {
 
-            <div>
-                <h1>College Attendance</h1>
-                <p>Smart Attendance Management</p>
-            </div>
+    position: fixed;
 
-        </div>
+    width: 350px;
+    height: 350px;
 
-        <div class="today-box">
-            <span>Today</span>
-            <strong id="todayDate">--</strong>
-        </div>
+    border-radius: 50%;
 
-    </header>
+    filter: blur(80px);
 
+    opacity: 0.35;
 
-    <main class="container">
+    z-index: -1;
 
-        <!-- FILTER -->
+}
 
-        <section class="card filter-card">
+.orb-one {
 
-            <div class="section-title">
+    top: -120px;
+    left: -100px;
 
-                <div>
-                    <h2>Attendance Dashboard</h2>
-                    <p>Select department, section and student</p>
-                </div>
+    background: #6366f1;
 
-            </div>
+}
 
+.orb-two {
 
-            <div class="filters">
+    right: -120px;
+    bottom: -120px;
 
-                <div class="field">
+    background: #06b6d4;
 
-                    <label>Department</label>
+}
 
-                    <select id="departmentFilter">
 
-                        <option value="all">
-                            All Departments
-                        </option>
+/* =========================
+   HEADER
+========================= */
 
-                        <option value="BME">BME</option>
-                        <option value="AIDS">AIDS</option>
-                        <option value="IT">IT</option>
-                        <option value="ECE">ECE</option>
-                        <option value="MECH">MECH</option>
-                        <option value="CSE">CSE</option>
+.header {
 
-                    </select>
+    max-width: 1400px;
 
-                </div>
+    margin: 25px auto;
 
+    padding: 22px 28px;
 
-                <div class="field">
+    display: flex;
 
-                    <label>Section</label>
+    align-items: center;
 
-                    <select id="sectionFilter">
+    justify-content: space-between;
 
-                        <option value="all">
-                            All Sections
-                        </option>
+    background:
+        rgba(255,255,255,0.72);
 
-                        <option value="A">Section A</option>
-                        <option value="B">Section B</option>
-                        <option value="C">Section C</option>
+    backdrop-filter:
+        blur(20px);
 
-                    </select>
+    border:
+        1px solid
+        rgba(255,255,255,0.8);
 
-                </div>
+    border-radius: 25px;
 
+    box-shadow:
+        0 20px 50px
+        rgba(31,41,100,0.12);
 
-                <div class="field">
+}
 
-                    <label>Student</label>
 
-                    <select id="studentFilter">
+.brand {
 
-                        <option value="all">
-                            All Students
-                        </option>
+    display: flex;
 
-                    </select>
+    align-items: center;
 
-                </div>
+    gap: 15px;
 
-            </div>
+}
 
-        </section>
 
+.logo {
 
-        <!-- STATISTICS -->
+    width: 60px;
+    height: 60px;
 
-        <section class="stats">
+    display: grid;
 
-            <div class="stat-card">
+    place-items: center;
 
-                <div class="stat-icon purple">
-                    👨‍🎓
-                </div>
+    border-radius: 18px;
 
-                <div>
-                    <span>Total Students</span>
-                    <h2 id="totalStudents">0</h2>
-                </div>
+    background:
+        linear-gradient(
+            145deg,
+            #6366f1,
+            #4338ca
+        );
 
-            </div>
+    color: white;
 
+    font-size: 28px;
 
-            <div class="stat-card">
+    box-shadow:
+        0 12px 25px
+        rgba(79,70,229,0.35);
 
-                <div class="stat-icon green">
-                    ✓
-                </div>
+    transform:
+        perspective(500px)
+        rotateX(5deg);
 
-                <div>
-                    <span>Present Today</span>
-                    <h2 id="presentToday">0</h2>
-                </div>
+}
 
-            </div>
 
+.brand h1 {
 
-            <div class="stat-card">
+    font-size: 28px;
 
-                <div class="stat-icon red">
-                    ✕
-                </div>
+}
 
-                <div>
-                    <span>Absent Today</span>
-                    <h2 id="absentToday">0</h2>
-                </div>
 
-            </div>
+.brand p {
 
+    margin-top: 5px;
 
-            <div class="stat-card">
+    color: #64748b;
 
-                <div class="stat-icon blue">
-                    📊
-                </div>
+}
 
-                <div>
-                    <span>Average Attendance</span>
-                    <h2 id="averageAttendance">0%</h2>
-                </div>
 
-            </div>
+.today-box {
 
-        </section>
+    text-align: right;
 
+}
 
-        <!-- DATE RANGE -->
 
-        <section class="card range-card">
+.today-box span {
 
-            <div>
+    display: block;
 
-                <h2>📅 Attendance Period</h2>
+    font-size: 12px;
 
-                <p>
-                    Previous 15 days + Next 15 days
-                </p>
+    color: #64748b;
 
-            </div>
+}
 
 
-            <div class="date-ranges">
+.today-box strong {
 
-                <div class="range-box">
+    display: block;
 
-                    <small>Previous 15 Days</small>
+    margin-top: 5px;
 
-                    <strong id="previousRange">
-                        --
-                    </strong>
+}
 
-                </div>
 
+/* =========================
+   CONTAINER
+========================= */
 
-                <div class="range-box future">
+.container {
 
-                    <small>Next 15 Days</small>
+    max-width: 1400px;
 
-                    <strong id="nextRange">
-                        --
-                    </strong>
+    margin: auto;
 
-                </div>
+    padding: 0 20px 50px;
 
-            </div>
+}
 
-        </section>
 
+/* =========================
+   GLASS CARD
+========================= */
 
-        <!-- PREVIOUS 15 DAYS -->
+.card {
 
-        <section class="card">
+    padding: 25px;
 
-            <div class="section-title">
+    margin-bottom: 25px;
 
-                <div>
+    background:
+        rgba(255,255,255,0.70);
 
-                    <h2>📝 Previous 15 Days</h2>
+    backdrop-filter:
+        blur(20px);
 
-                    <p>
-                        Mark Present or Absent
-                    </p>
+    border:
+        1px solid
+        rgba(255,255,255,0.85);
 
-                </div>
+    border-radius: 25px;
 
-                <button
-                    class="clear-btn"
-                    onclick="clearAllAttendance()">
+    box-shadow:
+        0 20px 45px
+        rgba(31,41,100,0.10);
 
-                    Clear Attendance
+    transition: 0.3s;
 
-                </button>
+}
 
-            </div>
 
+.card:hover {
 
-            <div class="table-container">
+    transform:
+        translateY(-3px);
 
-                <table>
+}
 
-                    <thead>
 
-                        <tr>
+/* =========================
+   TITLES
+========================= */
 
-                            <th>Student</th>
-                            <th>Department</th>
-                            <th>Section</th>
-                            <th>Date</th>
-                            <th>Status</th>
-                            <th>Attendance</th>
+.section-title {
 
-                        </tr>
+    display: flex;
 
-                    </thead>
+    align-items: center;
 
-                    <tbody id="attendanceTable">
+    justify-content: space-between;
 
-                    </tbody>
+    margin-bottom: 20px;
 
-                </table>
+}
 
-            </div>
 
-        </section>
+.section-title h2 {
 
+    font-size: 21px;
 
-        <!-- NEXT 15 DAYS -->
+}
 
-        <section class="card">
 
-            <div class="section-title">
+.section-title p {
 
-                <div>
+    margin-top: 5px;
 
-                    <h2>🔮 Next 15 Days</h2>
+    color: #64748b;
 
-                    <p>
-                        Future attendance planning
-                    </p>
+    font-size: 14px;
 
-                </div>
+}
 
-            </div>
 
+/* =========================
+   FILTERS
+========================= */
 
-            <div
-                class="future-grid"
-                id="futureGrid">
+.filters {
 
-            </div>
+    display: grid;
 
-        </section>
+    grid-template-columns:
+        repeat(3, 1fr);
 
-    </main>
+    gap: 20px;
 
+}
 
-    <footer>
 
-        <p>
-            © 2026 College Attendance System
-        </p>
+.field {
 
-    </footer>
+    display: flex;
 
+    flex-direction: column;
 
-    <script src="app.js"></script>
+    gap: 8px;
 
-</body>
+}
 
-</html>
+
+.field label {
+
+    font-weight: 600;
+
+    font-size: 14px;
+
+}
+
+
+select {
+
+    width: 100%;
+
+    padding: 14px;
+
+    border: none;
+
+    outline: none;
+
+    border-radius: 13px;
+
+    background: white;
+
+    box-shadow:
+        inset 0 0 0 1px #e2e8f0;
+
+    font-size: 14px;
+
+    cursor: pointer;
+
+}
+
+
+/* =========================
+   STATISTICS
+========================= */
+
+.stats {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(4, 1fr);
+
+    gap: 20px;
+
+    margin-bottom: 25px;
+
+}
+
+
+.stat-card {
+
+    padding: 22px;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 15px;
+
+    background:
+        rgba(255,255,255,0.72);
+
+    backdrop-filter:
+        blur(20px);
+
+    border-radius: 22px;
+
+    box-shadow:
+        0 15px 35px
+        rgba(31,41,100,0.10);
+
+    transition: 0.3s;
+
+}
+
+
+.stat-card:hover {
+
+    transform:
+        translateY(-7px)
+        rotateX(3deg);
+
+}
+
+
+.stat-card span {
+
+    color: #64748b;
+
+    font-size: 13px;
+
+}
+
+
+.stat-card h2 {
+
+    margin-top: 5px;
+
+    font-size: 28px;
+
+}
+
+
+.stat-icon {
+
+    width: 55px;
+    height: 55px;
+
+    display: grid;
+
+    place-items: center;
+
+    border-radius: 16px;
+
+    font-size: 23px;
+
+}
+
+
+.purple {
+
+    background: #ede9fe;
+
+}
+
+
+.green {
+
+    background: #dcfce7;
+
+}
+
+
+.red {
+
+    background: #fee2e2;
+
+}
+
+
+.blue {
+
+    background: #dbeafe;
+
+}
+
+
+/* =========================
+   RANGE
+========================= */
+
+.range-card {
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+}
+
+
+.range-card p {
+
+    color: #64748b;
+
+    margin-top: 5px;
+
+}
+
+
+.date-ranges {
+
+    display: flex;
+
+    gap: 15px;
+
+}
+
+
+.range-box {
+
+    padding: 15px 20px;
+
+    background: white;
+
+    border-radius: 15px;
+
+    box-shadow:
+        0 7px 20px
+        rgba(0,0,0,0.06);
+
+}
+
+
+.range-box small {
+
+    display: block;
+
+    color: #64748b;
+
+    font-size: 11px;
+
+}
+
+
+.range-box strong {
+
+    display: block;
+
+    margin-top: 5px;
+
+}
+
+
+.future strong {
+
+    color: #0891b2;
+
+}
+
+
+/* =========================
+   TABLE
+========================= */
+
+.table-container {
+
+    width: 100%;
+
+    overflow-x: auto;
+
+}
+
+
+table {
+
+    width: 100%;
+
+    min-width: 900px;
+
+    border-collapse: collapse;
+
+}
+
+
+th {
+
+    padding: 15px;
+
+    text-align: left;
+
+    background: #eef2ff;
+
+    font-size: 13px;
+
+}
+
+
+td {
+
+    padding: 14px;
+
+    border-bottom:
+        1px solid #e2e8f0;
+
+    font-size: 14px;
+
+}
+
+
+tr:hover td {
+
+    background:
+        rgba(238,242,255,0.55);
+
+}
+
+
+/* =========================
+   ATTENDANCE BUTTONS
+========================= */
+
+.status-buttons {
+
+    display: flex;
+
+    gap: 7px;
+
+}
+
+
+.status-btn {
+
+    padding: 8px 11px;
+
+    border: none;
+
+    border-radius: 9px;
+
+    cursor: pointer;
+
+    font-size: 12px;
+
+    font-weight: 600;
+
+    transition: 0.2s;
+
+}
+
+
+.status-btn:hover {
+
+    transform:
+        translateY(-2px);
+
+}
+
+
+.present {
+
+    background: #dcfce7;
+
+    color: #166534;
+
+}
+
+
+.absent {
+
+    background: #fee2e2;
+
+    color: #991b1b;
+
+}
+
+
+.active {
+
+    outline:
+        2px solid #4f46e5;
+
+}
+
+
+.not-marked {
+
+    color: #94a3b8;
+
+    font-size: 12px;
+
+}
+
+
+/* =========================
+   PERCENTAGE
+========================= */
+
+.percentage {
+
+    font-weight: 700;
+
+    color: #4f46e5;
+
+}
+
+
+/* =========================
+   CLEAR BUTTON
+========================= */
+
+.clear-btn {
+
+    border: none;
+
+    padding: 10px 15px;
+
+    border-radius: 10px;
+
+    background: #fee2e2;
+
+    color: #991b1b;
+
+    cursor: pointer;
+
+    font-weight: 600;
+
+}
+
+
+.clear-btn:hover {
+
+    background: #fecaca;
+
+}
+
+
+/* =========================
+   FUTURE DAYS
+========================= */
+
+.future-grid {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(
+            auto-fit,
+            minmax(180px, 1fr)
+        );
+
+    gap: 15px;
+
+}
+
+
+.future-day {
+
+    padding: 20px;
+
+    background: white;
+
+    border-radius: 18px;
+
+    box-shadow:
+        0 8px 20px
+        rgba(0,0,0,0.06);
+
+    transition: 0.3s;
+
+}
+
+
+.future-day:hover {
+
+    transform:
+        translateY(-6px)
+        rotateY(4deg);
+
+}
+
+
+.future-day strong {
+
+    display: block;
+
+}
+
+
+.future-day small {
+
+    display: block;
+
+    margin-top: 5px;
+
+    color: #64748b;
+
+}
+
+
+.future-status {
+
+    margin-top: 15px;
+
+    padding: 9px;
+
+    text-align: center;
+
+    border-radius: 10px;
+
+    background: #f1f5f9;
+
+    font-size: 12px;
+
+}
+
+
+/* =========================
+   FOOTER
+========================= */
+
+footer {
+
+    text-align: center;
+
+    padding: 25px;
+
+    color: #64748b;
+
+}
+
+
+/* =========================
+   MOBILE
+========================= */
+
+@media(max-width: 950px) {
+
+    .stats {
+
+        grid-template-columns:
+            repeat(2, 1fr);
+
+    }
+
+    .filters {
+
+        grid-template-columns: 1fr;
+
+    }
+
+    .range-card {
+
+        flex-direction: column;
+
+        align-items: flex-start;
+
+        gap: 20px;
+
+    }
+
+}
+
+
+@media(max-width: 600px) {
+
+    .header {
+
+        margin: 10px;
+
+        padding: 18px;
+
+        flex-direction: column;
+
+        align-items: flex-start;
+
+        gap: 15px;
+
+    }
+
+    .today-box {
+
+        text-align: left;
+
+    }
+
+    .brand h1 {
+
+        font-size: 21px;
+
+    }
+
+    .logo {
+
+        width: 50px;
+        height: 50px;
+
+        font-size: 22px;
+
+    }
+
+    .container {
+
+        padding:
+            0 10px 30px;
+
+    }
+
+    .card {
+
+        padding: 18px;
+
+    }
+
+    .stats {
+
+        grid-template-columns: 1fr;
+
+    }
+
+    .date-ranges {
+
+        width: 100%;
+
+        flex-direction: column;
+
+    }
+
+    .range-box {
+
+        width: 100%;
+
+    }
+
+    .section-title {
+
+        align-items: flex-start;
+
+        gap: 15px;
+
+    }
+
+    }
